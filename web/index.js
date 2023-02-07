@@ -22,11 +22,15 @@ async function fetchAnimes(signal) {
 function appendToHTML(element) {
     return new WritableStream({
         write({ title, description, url_anime }) {
+            const newDescription = description === "" ? "No description." : description.slice(0, 100);
+
             const card = `
-                <article class="border rounded border-zinc-400">
-                    <strong>[${++counter}] - ${title}</strong>
-                    <p>${description}</p>
-                    <a href="${url_anime}">Here's why</a>
+                <article class="rounded bg-zinc-800 p-8 rounded-md mb-4">
+                    <div>
+                        <strong class="block mb-2 text-xl">${title}</strong>
+                        <p class="text-zinc-400 mb-4 text-ellipsis overflow-hidden">${newDescription}</p>
+                        <a href="${url_anime}" class="text-violet-400 underline hover:brightness-110">Here's why</a>
+                    </div>
                 </article>
             `
 
@@ -61,21 +65,20 @@ function parseNDJSON() {
     })
 }
 
-const [
-    start,
-    stop,
-    cards
-] = ["start", "stop", "cards"].map(item => document.querySelector(`#${item}`));
+const startFetchingButton = document.querySelector("button#startFetching");
+const stopFetchingButton = document.querySelector("button#stopFetching");
 
-start.addEventListener("click", async () => {
+const cardsContainer = document.querySelector("#cards");
+
+startFetchingButton.addEventListener("click", async () => {
     const readable = await fetchAnimes(abortController.signal);
     
-    readable.pipeTo(appendToHTML(cards))
+    readable.pipeTo(appendToHTML(cardsContainer))
 })
 
 let abortController = new AbortController();
 
-stop.addEventListener("click", () => {
+stopFetchingButton.addEventListener("click", () => {
     abortController.abort();
 
     abortController = new AbortController();

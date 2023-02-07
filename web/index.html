@@ -2,18 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./global.css">
 
     <title>Document</title>
 </head>
-<body class="grid items-center">
-    <button type="button" id="start">Start</button>
-    <button type="button" id="stop">Stop</button>
+<body class="grid place-items-center bg-zinc-900 text-zinc-100 py-16 overflow-hidden">
+    <main class="max-w-2xl w-full">
+        <section class="bg-zinc-800 p-8 rounded-md mb-6">
+            <div class="mb-8">
+                <strong class="block text-3xl mb-2">Do you enjoy animes?</strong>
+                <span class="block text-xl">Try to find your next anime in our database, we have more than 3K of titles. Just press the start fetching button bellow and discover a new anime to watch.</span>
+            </div>
+            
+            <div 
+                id="buttons"
+                class="flex gap-4"
+            >
+                <button 
+                    type="button" 
+                    id="startFetching"
+                    class="px-3 py-2 bg-violet-500 text-zinc-100 rounded hover:bg-violet-600 transition-colors font-semibold"
+                >
+                    Start fetching
+                </button>
+                
+                <button 
+                    type="button" 
+                    id="stopFetching"
+                    class="px-3 py-2 border rounded border-red-500 text-zinc-100 rounded hover:bg-red-600 hover:border-red-600 transition-colors font-semibold"
+                >
+                    Stop fetching
+                </button>
+            </div>
+        </section>
 
-    <main class="grid grid-cols-3" id="cards"></main>
+        <section 
+            id="cards"
+            class="flex flex-col h-[500px] overflow-y-scroll"
+        ></section>
+    </main>
+
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <script type="module" src="./index.js"></script>
 </body>
